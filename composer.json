@@ -1,0 +1,30 @@
+{
+  "name": "yirius/icesdoc",
+  "description": "The ThinkPHP5.1 Api Doc Package",
+  "version": "1.0",
+  "type": "think-extend",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Yirius",
+      "email": "2951979767@qq.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "icesdoc\\": "src"
+    },
+    "files": [
+      "src/helper.php"
+    ]
+  },
+  "require": {
+    "topthink/think-helper": ">=1.0.4",
+    "topthink/think-installer": ">=1.0.10"
+  },
+  "extra": {
+    "think-config": {
+      "icesdoc": "src/config/icesdoc.php"
+    }
+  }
+}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>apidoc</title>
+
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">
+                {$_render['class']} [extend: {$_render['parent']|default='暂无'}]
+            </a>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="col-xs-3">
+        <ul class="nav nav-pills nav-stacked" role="tablist">
+            {foreach name="_render['actions']" key="_actions_i" item="_actions_val"}
+                <li role="presentation" class="{if $_actions_i eq 0}active{/if}">
+                    <a href="#icesui{$_actions_i}" aria-controls="home" role="tab" data-toggle="tab">{$_actions_val['name']}</a>
+                </li>
+            {/foreach}
+        </ul>
+    </div>
+    <div class="col-xs-9">
+        <div class="tab-content">
+            {foreach name="_render['actions']" key="_actions_i" item="_actions_val"}
+            <div role="tabpanel" class="tab-pane {if $_actions_i eq 0}active{/if}" id="icesui{$_actions_i}">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{$_actions_val['title']|default='暂无标题'}</h3>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <td>描述: </td>
+                                <td>{$_actions_val['description']|default='暂无描述'}</td>
+                            </tr>
+                            <tr>
+                                <td>返回值: </td>
+                                {php}$result = empty($_actions_val['return'])?[]:$_actions_val['return'];{/php}
+                                <td>{:join($result)}</td>
+                            </tr>
+                            {if !empty($_actions_val['throws'])}
+                            <tr>
+                                <td>异常提醒: </td>
+                                <td>{$_actions_val['throws']|default='暂无描述'}</td>
+                            </tr>
+                            {/if}
+                            {if !empty($_actions_val['url'])}
+                            <tr>
+                                <td>对应网址: </td>
+                                <td>{$_actions_val['url']|default=''}</td>
+                            </tr>
+                            {/if}
+                            </tbody>
+                        </table>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>类型</th>
+                                    <th>名称</th>
+                                    <th>介绍</th>
+                                    <th>是否必须</th>
+                                    <th>默认值</th>
+                                    <th>可选参数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {if !empty($_actions_val['param'])}
+                                {foreach name="_actions_val['param']" key="_params" item="_params_val"}
+                                    <tr>
+                                        <td>{$_params_val['type']}</td>
+                                        <td>{$_params_val['name']}</td>
+                                        <td>{$_params_val['desc']}</td>
+                                        <td>{$_params_val['require']}</td>
+                                        <td>{$_params_val['default']}</td>
+                                        <td>{$_params_val['canuse']}</td>
+                                    </tr>
+                                {/foreach}
+                            {/if}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {/foreach}
+        </div>
+    </div>
+</div>
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+</html>
